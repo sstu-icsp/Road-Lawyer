@@ -1,12 +1,11 @@
 import telebot
-
+import datetime
 token = '376896577:AAFFKzlziP7rZY4ddHQcAXM2RS2LDkdO_sU'
 bot = telebot.TeleBot(token)
 print(bot.get_me())
 
 def log(message):
     print("/n========")
-    from datetime import datetime
     print(datetime.now())
     print("Сообщение от {0} {1}. (id = {2}) \nСообщение: {3}".format(message.from_user.first_name,
                                                                      message.from_user.last_name,
@@ -26,5 +25,5 @@ def handle_text(message):
 def handle_text(message):
     bot.send_message(message.chat.id, "Добро пожаловать!")
 
-bot.polling(none_stop=True, interval=0)
+bot.polling(none_stop=True, interval=50)
 
