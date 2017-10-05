@@ -12,3 +12,7 @@ class Intent(models.Model):
 class InputSentence(models.Model):
     text = models.CharField(max_length=150)
     intent = models.ForeignKey(Intent, on_delete=models.CASCADE)
+
+
+class Response(models.Model):
+    text = models.CharField(max_length=150)

@@ -1,5 +1,5 @@
 """
-WSGI config for BotApp project.
+WSGI config for bot_app project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "BotApp.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bot_app.settings")
 
 application = get_wsgi_application()

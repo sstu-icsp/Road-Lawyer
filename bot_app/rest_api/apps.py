@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class RestAPIConfig(AppConfig):
+class RestApiConfig(AppConfig):
     name = 'rest_api'

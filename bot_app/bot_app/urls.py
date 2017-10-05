@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dialogs/', include('dialog_manager.urls'))
+    url(r'^dialogs/', include('dialog_manager.urls')),
+    url(r'^api/', include('rest_api.urls'))
 ]
