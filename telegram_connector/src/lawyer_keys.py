@@ -1,5 +1,6 @@
 import telebot
 import datetime
+import bot_connector
 
 token = '376896577:AAFFKzlziP7rZY4ddHQcAXM2RS2LDkdO_sU'
 bot = telebot.TeleBot(token)
@@ -18,13 +19,15 @@ def log(message):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     # TODO здесь надо вызывать метод из бот конектора и отправлять полученые респонсы из бот конектора.
+    answer = bot_connector.get_answer(message)
     log(message)
-    if message.text == "Привет":
-        bot.send_message(message.chat.id, " Добрый день")
-    elif message.text == "Как дела?":
-        bot.send_message(message.chat.id, "Прекрасно, а как Ваши?")
-    else:
-        bot.send_message(message.chat.id, "Я даже не знаю, как на такое ответить!")
+    bot.send_message(message.chat.id, answer)
+    # if message.text == "Привет":
+    #     bot.send_message(message.chat.id, " Добрый день")
+    # elif message.text == "Как дела?":
+    #     bot.send_message(message.chat.id, "Прекрасно, а как Ваши?")
+    # else:
+    #     bot.send_message(message.chat.id, "Я даже не знаю, как на такое ответить!")
 
 
 @bot.message_handler(comands=['start'])
