@@ -18,7 +18,6 @@ class Response(models.Model):
     text = models.CharField(max_length=150)
     # article = models.ForeignKey(Article)
 
-# Я не понимаю что хранится в этих классах и как оно связано между собой
 # #class IntentNode(models.Model):
 #   nextNodes = models.PositiveIntegerField
 #  flow = models.PositiveIntegerField
@@ -47,9 +46,8 @@ class DisplayedMessages(models.Model):
     date_disp = models.DateField()
 
 
-# не понимаю как связан этот класс
-# class UserState(models.Model):
 
+# class UserState(models.Model):
 # flow
 #  intent
 
