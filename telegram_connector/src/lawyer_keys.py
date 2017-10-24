@@ -19,9 +19,9 @@ def log(message):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     # TODO здесь надо вызывать метод из бот конектора и отправлять полученые респонсы из бот конектора.
-    answer = bot_connector.get_answer(message)
-    log(message)
-    bot.send_message(message.chat.id, answer)
+    response = bot_connector.get_answer()
+    for key in response:
+        bot.send_message(message.chat.id, response[key])
     # if message.text == "Привет":
     #     bot.send_message(message.chat.id, " Добрый день")
     # elif message.text == "Как дела?":
