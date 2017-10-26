@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-from dialog_manager.models import Response
 from dialog_manager.services import save_user_message
 
 

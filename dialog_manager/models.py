@@ -69,7 +69,7 @@ class DisplayedMessages(models.Model):
 #  intent
 
 
-class NotAnswerMessage(models.Model):
+class NotAnsweredMessage(models.Model):
     user = models.ForeignKey(Users)
     text = models.TextField()
     date = models.DateField()

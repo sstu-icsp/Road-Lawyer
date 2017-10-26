@@ -21,7 +21,7 @@ def log(message, responses=None):
 
     if responses:
         for response in responses:
-            print("Ответ: ", format(response.text))
+            print("Ответ: ", format(response['text']))
 
 
 @bot.message_handler(commands=['help'])
@@ -42,7 +42,7 @@ def handle_text(message):
     responses = bot_service.get_answer(message.chat.id, message.text)
     log(message=message, responses=responses)
     for response in responses:
-        bot.send_message(message.chat.id, response.text)
+        bot.send_message(message.chat.id, response['text'])
 
 
 bot.polling(none_stop=True, timeout=100)
