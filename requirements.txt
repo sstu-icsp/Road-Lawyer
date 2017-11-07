@@ -1,6 +1,5 @@
 telebot
 Django==1.11.6
 requests==2.18.4
-const==0.0.0
 djangorestframework==3.7.1
 pyTelegramBotAPI==3.2.1

@@ -48,6 +48,7 @@ class Pair(models.Model):
     intent = models.ManyToManyField(Intent)
 
 
+
 # class Article(models.Model):
 #   articleName = models.CharField(max_length=150)
 #  articleText = models.TextField()
