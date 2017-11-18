@@ -9,8 +9,8 @@ class Intent(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        input_sentences = ", ".join(self.inputsentence_set.all())
-        return "Response: [ sentences: {} ]".format(input_sentences)
+        #@input_sentences = ", ".join(self.inputsentence_set.all())
+        return self.name # "Response: [ sentences: {} ]".format(input_sentences)
 
 
 class InputSentence(models.Model):
@@ -28,6 +28,10 @@ class Response(models.Model):
     Используется для обращения к базе данных
     """
     text = models.CharField(max_length=150)
+
+    def __str__(self):
+        #@input_sentences = ", ".join(self.inputsentence_set.all())
+        return self.text
     # article = models.ForeignKey(Article)
 
 

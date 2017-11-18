@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 
 
+
 class InputSentenceInline(admin.StackedInline):
     # показывать текст предложений
     model = InputSentence
@@ -26,4 +27,5 @@ class DialogHistoryAdmin(admin.ModelAdmin):
 admin.site.register(Intent, IntentAdmin)
 admin.site.register(Pair, PairAdmin)
 admin.site.register(DialogHistory, DialogHistoryAdmin)
+admin.site.register(Response)
 # Register your models here.
