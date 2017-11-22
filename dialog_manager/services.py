@@ -1,4 +1,8 @@
 from dialog_manager.models import DialogHistory, Intent, Pair
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import *
+from dialog_manager import models
 
 def save_user_message(chat_id, text):
     save_message(chat_id=chat_id, text=text, source="User")
@@ -17,6 +21,26 @@ def simple_classifier(chat_id, text):
         for sentences in intent_tmp:
             if (sentences.text == text):
                 return pair.list_response.all()
+
+def NB_classifier():
+    vector = TfidfVectorizer()
+
+    masX = []
+    masY = []
+
+    for intent in models.Intent.objects.all():
+        tmp = intent.inputsentence_set.all()
+        for sentences in tmp:
+            masY.append(intent.name)
+            masX.append(sentences.intent.name)
+
+    X = vector.fit_transform(np.array(masX))
+    Y = np.array(masY)
+
+    clf = BernoulliNB()
+    clf.fit(X, Y)
+
+    clf.predict(vector.transform('Входное сообщение'))
 
 
 
