@@ -27,7 +27,7 @@ class Response(models.Model):
     Класс представляет сообой сущность ответов, которые бот отправляет пользователю.
     Используется для обращения к базе данных
     """
-    text = models.CharField(max_length=150)
+    text = models.CharField(max_length=1200)
 
     def __str__(self):
         #@input_sentences = ", ".join(self.inputsentence_set.all())

@@ -20,3 +20,7 @@ def get_answer(request):
         result_responses.append({"text": response.text})
 
     return Response(result_responses)
+
+
+
+
