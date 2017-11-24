@@ -7,6 +7,9 @@ class Intent(models.Model):
     Используется для обращения к базе данных
     """
     name = models.CharField(max_length=50)
+    def inner_sentences(self):
+        return ', '.join([item.text for item in self.inputsentence_set.all()])
+    inner_sentences.short_description = 'орпропа'
 
     def __str__(self):
         # @input_sentences = ", ".join(self.inputsentence_set.all())
@@ -20,7 +23,9 @@ class InputSentence(models.Model):
     """
     text = models.CharField(max_length=150)
     intent = models.ForeignKey(Intent, on_delete=models.CASCADE)
-
+    def __str__(self):
+        # @input_sentences = ", ".join(self.inputsentence_set.all())
+        return self.text  # "Response: [ sentences: {} ]".format(input_sentences)
 
 class Response(models.Model):
     """
@@ -50,6 +55,15 @@ class Pair(models.Model):
     """
     responses = models.ManyToManyField(Response)
     intents = models.ManyToManyField(Intent)
+
+    def inner_intents(self):
+        return ', '.join([item.name for item in self.intents.all()])
+    inner_intents.short_description = 'Intent'
+
+
+    def inner_responses(self):
+        return '\n '.join([item.text for item in self.responses.all()])
+    inner_responses.short_description = 'Responses'
 
 
 # class Article(models.Model):
@@ -88,3 +102,5 @@ class DialogHistory(models.Model):
     text = models.CharField(max_length=300)
     source = models.CharField(max_length=10)
     date = models.DateField(auto_now_add=True)
+
+
