@@ -7,6 +7,7 @@ from dialog_manager import models
 clf = BernoulliNB()
 vector = TfidfVectorizer()
 
+
 def save_user_message(chat_id, text):
     save_message(chat_id=chat_id, text=text, source="User")
 
@@ -18,28 +19,29 @@ def save_bot_message(chat_id, text):
 def save_message(chat_id, text, source):
     DialogHistory(chat_id=chat_id, text=text, source=source)
 
-def simple_classifier(text):
+
+def simple_classifier(chat_id, text):
     for pair in Pair.objects.all():
-        intent_tmp = pair.intent.inputsentence_set.all()
-        for sentences in intent_tmp:
-            if (sentences.text == text):
-                return pair.list_response.all()
+        for intent in pair.intents.all():
+            for sentence in intent.inputsentence_set.all():
+                if sentence.text.lower() == text.lower():
+                    return pair.responses.all()
 
-def NB_classifier():
 
-    masX = []
-    masY = []
+def nb_classifier():
+    mas_x = []
+    mas_y = []
 
     for intent in models.Intent.objects.all():
         tmp = intent.inputsentence_set.all()
         for sentences in tmp:
-            masY.append(intent.name)
-            masX.append(sentences.intent.name)
+            mas_y.append(intent.name)
+            mas_x.append(sentences.intent.name)
 
-    X = vector.fit_transform(np.array(masX))
-    Y = np.array(masY)
+    x = vector.fit_transform(np.array(mas_x))
+    y = np.array(mas_y)
 
-    clf.fit(X, Y)
+    clf.fit(x, y)
 
 
 def get_response(chat_id, text):
@@ -47,13 +49,10 @@ def get_response(chat_id, text):
     pairs = models.Pair.objects.all()
     flag = False
     for pair in pairs:
-        if(intent_name == pair.intent.name):
+        if (intent_name == pair.intent.name):
             flag == True
             return pair.list_response.all()
-    if(flag == False):
+    if (flag == False):
         from datetime import datetime
         date = datetime.now()
         models.NotAnsweredMessage(chat_id, text, date)
-
-
-

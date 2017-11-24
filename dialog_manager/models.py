@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -10,8 +9,8 @@ class Intent(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        #@input_sentences = ", ".join(self.inputsentence_set.all())
-        return self.name # "Response: [ sentences: {} ]".format(input_sentences)
+        # @input_sentences = ", ".join(self.inputsentence_set.all())
+        return self.name  # "Response: [ sentences: {} ]".format(input_sentences)
 
 
 class InputSentence(models.Model):
@@ -31,9 +30,9 @@ class Response(models.Model):
     text = models.CharField(max_length=1200)
 
     def __str__(self):
-        #@input_sentences = ", ".join(self.inputsentence_set.all())
+        # @input_sentences = ", ".join(self.inputsentence_set.all())
         return self.text
-    # article = models.ForeignKey(Article)
+        # article = models.ForeignKey(Article)
 
 
 # class IntentNode(models.Model):
@@ -49,9 +48,8 @@ class Pair(models.Model):
     Класс представляет сообой сущность для связи интентов и ответо между собой
     Используется для обращения к базе данных
     """
-    list_response = models.ManyToManyField(Response)
-    intent = models.ManyToManyField(Intent)
-
+    responses = models.ManyToManyField(Response)
+    intents = models.ManyToManyField(Intent)
 
 
 # class Article(models.Model):

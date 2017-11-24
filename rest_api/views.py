@@ -16,8 +16,9 @@ def get_answer(request):
     save_user_message(chat_id=chat_id, text=text)
     responses = simple_classifier(chat_id, text)
     result_responses = []
-    for response in responses:
-        result_responses.append({"text": response.text})
+    if responses:
+        for response in responses:
+            result_responses.append({"text": response.text})
 
     return Response(result_responses)
 

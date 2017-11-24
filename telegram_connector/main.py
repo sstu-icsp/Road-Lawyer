@@ -40,9 +40,10 @@ def handle_text(message):
     Обработчик сообщений пользователя текстового типа
     """
     responses = bot_service.get_answer(message.chat.id, message.text)
-    log(message=message, responses=responses)
-    for response in responses:
-        bot.send_message(message.chat.id, response['text'])
+    if responses:
+        log(message=message, responses=responses)
+        for response in responses:
+            bot.send_message(message.chat.id, response['text'])
 
 
 bot.polling(none_stop=True, timeout=100)

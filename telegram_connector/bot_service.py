@@ -13,4 +13,4 @@ def get_answer(chat_id, text):
     :param text: Сообщение пользователя
     :return: Возвращает ответы от бота
     """
-    return requests.get(GET_ANSWER_URL, {'chat_id': chat_id, 'text': text})#.json()
+    return requests.get(GET_ANSWER_URL, {'chat_id': chat_id, 'text': text}).json()
