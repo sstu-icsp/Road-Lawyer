@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from dialog_manager.services import save_user_message, simple_classifier
+from dialog_manager.services import save_user_message, nb_classifier
 
 
 @api_view(['get'])
@@ -14,7 +14,7 @@ def get_answer(request):
     text = request.query_params['text']
     chat_id = request.query_params['chat_id']
     save_user_message(chat_id=chat_id, text=text)
-    responses = simple_classifier(chat_id, text)
+    responses = nb_classifier(chat_id, text)
     result_responses = []
     if responses:
         for response in responses:
