@@ -4,8 +4,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import *
 from dialog_manager import models
 
-clf = BernoulliNB()
-vector = TfidfVectorizer()
 
 
 def save_user_message(chat_id, text):
@@ -28,31 +26,39 @@ def simple_classifier(chat_id, text):
                     return pair.responses.all()
 
 
-def nb_classifier():
+def nb_classifier(chat_id, text):
     mas_x = []
     mas_y = []
 
     for intent in models.Intent.objects.all():
-        tmp = intent.inputsentence_set.all()
-        for sentences in tmp:
+        for sentences in intent.inputsentence_set.all():
             mas_y.append(intent.name)
-            mas_x.append(sentences.intent.name)
+            mas_x.append(sentences.text)
 
-    x = vector.fit_transform(np.array(mas_x))
-    y = np.array(mas_y)
+    vector = TfidfVectorizer()
+    X = vector.fit_transform(
+        np.array(mas_x))
 
-    clf.fit(x, y)
+    Y = np.array(mas_y)
 
+    clf = BernoulliNB()
+    clf.fit(X, Y)
 
-def get_response(chat_id, text):
-    intent_name = clf.predict(vector.transform(text))
-    pairs = models.Pair.objects.all()
-    flag = False
-    for pair in pairs:
-        if (intent_name == pair.intent.name):
-            flag == True
-            return pair.list_response.all()
-    if (flag == False):
-        from datetime import datetime
-        date = datetime.now()
-        models.NotAnsweredMessage(chat_id, text, date)
+    intent_name = clf.predict(vector.transform([text]))
+    result_intent = Intent.objects.get(name = intent_name)
+    for pair in result_intent.pair_set.all():
+        return pair.responses.all()
+
+# def get_response(chat_id, text):
+#     nb_classifier()
+#     intent_name = clf.predict(vector.transform(text))
+#     pairs = models.Pair.objects.all()
+#     flag = False
+#     for pair in pairs:
+#         if (intent_name == pair.intent.name):
+#             flag = True
+#             return pair.list_response.all()
+#     if flag == False:
+#         from datetime import datetime
+#         date = datetime.now()
+#         models.NotAnsweredMessage(chat_id, text, date)
