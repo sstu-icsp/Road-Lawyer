@@ -103,4 +103,12 @@ class DialogHistory(models.Model):
     source = models.CharField(max_length=10)
     date = models.DateField(auto_now_add=True)
 
+class IntentWords(models.Model):
+    word = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+
+class CorpusWords(models.Model):
+    word = models.CharField(max_length=50)
+    score = models.IntegerField()
+
 
